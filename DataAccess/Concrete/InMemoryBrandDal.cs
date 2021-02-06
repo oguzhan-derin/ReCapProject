@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete
@@ -32,9 +33,19 @@ namespace DataAccess.Concrete
             _brands.Remove(brandToDelete);
         }
 
+        public Brand Get(Expression<Func<Brand, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Brand> GetAll()
         {
             return _brands;
+        }
+
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Brand> GetById(int brandId)
