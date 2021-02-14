@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,11 @@ namespace DataAccess.Concrete
         public List<Color> GetById(int colorId)
         {
             return _colors.Where(c => c.ColorId == colorId).ToList();
+        }
+
+        public List<CarDetailDto> GetColorDetail()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Color color)
