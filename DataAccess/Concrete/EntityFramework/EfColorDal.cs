@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
     public class EfColorDal : EfEntityRepositoryBase<Color, ReCapProjectDbContext>, IColorDal
 
     {
-        public List<CarDetailDto> GetColorDetail()
+        public List<CarDetailDto> GetColorDetail(Expression<Func<Car, bool>> filter = null)
         {
             using (ReCapProjectDbContext context = new ReCapProjectDbContext())
             {

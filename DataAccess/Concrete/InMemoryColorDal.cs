@@ -59,6 +59,11 @@ namespace DataAccess.Concrete
             throw new NotImplementedException();
         }
 
+        public List<CarDetailDto> GetColorDetail(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Color color)
         {
             Color colorToUpdate = _colors.SingleOrDefault(c => c.ColorId == color.ColorId);

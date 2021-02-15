@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBrandDal : EfEntityRepositoryBase<Brand, ReCapProjectDbContext>, IBrandDal
     {
-        public List<CarDetailDto> GetBrandDetail()
+        public List<CarDetailDto> GetBrandDetail(Expression<Func<Car, bool>> filter = null)
         {
             using (ReCapProjectDbContext context = new ReCapProjectDbContext())
             {

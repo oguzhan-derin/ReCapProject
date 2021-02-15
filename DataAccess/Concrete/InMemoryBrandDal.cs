@@ -54,6 +54,11 @@ namespace DataAccess.Concrete
             throw new NotImplementedException();
         }
 
+        public List<CarDetailDto> GetBrandDetail(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Brand> GetById(int brandId)
         {
             return _brands.Where(b => b.BrandId == brandId).ToList();
