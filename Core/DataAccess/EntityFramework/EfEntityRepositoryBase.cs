@@ -49,7 +49,7 @@ namespace Core.DataAccess.EntityFramework
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();
             }
-        }
+        }      
 
         public void Update(TEntity entity)
         {

@@ -17,7 +17,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapProjectDbContext context = new ReCapProjectDbContext())
             {
-                var result = from ca in context.Cars
+                var result = from ca in filter == null ? context.Cars : context.Cars.Where(filter)
                              join b in context.Brands
                              on ca.Id equals b.BrandId
                              join co in context.Colors
@@ -26,7 +26,10 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  Id = ca.Id,
                                  BrandName = b.BrandName,
-                                 ColorName=co.ColorName
+                                 ColorName = co.ColorName,
+                                 DailyPrice = ca.DailyPrice,
+                                 Descriptions = ca.Description,
+                                 ModelYear = ca.ModelYear
                              };
                 return result.ToList();
             }
