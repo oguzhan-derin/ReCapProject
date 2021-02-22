@@ -36,11 +36,12 @@ namespace ConsoleUı
                     "11.Müşteri Ekleme\n" +
                     "12.Müşterilerin Listelenmesi\n" +
                     "13.Kullanıcı Ekleme\n" +
-                    "14.Kullanıcıların Listelenmesi\n" +
-                    "15.Araba Kiralama\n" +
-                    "16.Araba Teslim Etme\n" +
-                    "17.Araba Kiralama Listesi\n" +
-                    "18.Çıkış\n" +
+                    "14.Kullanıcı Silme\n" +
+                    "15.Kullanıcıların Listelenmesi\n" +
+                    "16.Araba Kiralama\n" +
+                    "17.Araba Teslim Etme\n" +
+                    "18.Araba Kiralama Listesi\n" +
+                    "19.Çıkış\n" +
                     "Yukarıdakilerden hangi işlemi gerçekleştirmek istiyorsunuz ?"
                     );
 
@@ -96,25 +97,36 @@ namespace ConsoleUı
                         break;
                     case 14:
                         GetAllUserList(userManager);
+                        UserDeletion(userManager);
                         break;
                     case 15:
+                        GetAllUserList(userManager);
+                        break;
+                    case 16:
                         GetAllCarDetails(carManager);
                         GetAllCustomerList(customerManager);
                         RentalAddition(rentalManager);
                         break;
-                    case 16:
+                    case 17:
                         ReturnRental(rentalManager);
                         break;
-                    case 17:
+                    case 18:
                         GetAllRentalDetailList(rentalManager);
                         break;
-                    case 18:
+                    case 19:
                         cikis = false;
                         Console.WriteLine("Çıkış işlemi gerçekleşti.");
                         break;
 
                 }
             }
+        }
+
+        private static void UserDeletion(UserManager userManager)
+        {
+            Console.WriteLine("Hangi Id'ye sahip kullanıcıyı silmek istiyorsunuz? ");
+            int userId = Convert.ToInt32(Console.ReadLine());
+            userManager.Delete(userManager.GetById(userId).Data);
         }
 
         private static void GetAllRentalDetailList(RentalManager rentalManager)
@@ -157,11 +169,13 @@ namespace ConsoleUı
 
         private static void CarByDailyPrice(CarManager carManager, BrandManager brandManager, ColorManager colorManager)
         {
+            Console.WriteLine("Minumum değer giriniz : ");
             int min = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Maksimum değer giriniz : ");
             int max = Convert.ToInt32(Console.ReadLine());
-          
+
             Console.WriteLine($"\n\nGünlük fiyat aralığı {min} ile {max} olan arabalar: \nId\tColor Name\tBrand Name\tModel Year\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetCarDetails(d => d.DailyPrice >= min & d.DailyPrice<=max).Data)
+            foreach (var car in carManager.GetCarDetails(d => d.DailyPrice >= min & d.DailyPrice <= max).Data)
             {
                 Console.WriteLine($"{car.Id}\t{car.ColorName}\t\t{car.BrandName}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t\t{car.Descriptions}");
             }
@@ -217,7 +231,7 @@ namespace ConsoleUı
             string descriptionUpdate = Console.ReadLine();
 
             Console.WriteLine("Model Year: ");
-            int modelYearUpdate =Convert.ToInt32(Console.ReadLine());
+            int modelYearUpdate = Convert.ToInt32(Console.ReadLine());
 
             Car carUpdate = new Car { Id = carIdUpdate, BrandId = brandIdUpdate, ColorId = carIdUpdate, DailyPrice = dailyPriceUpdate, Description = descriptionUpdate, ModelYear = modelYearUpdate };
             carManager.Update(carUpdate);
@@ -226,9 +240,9 @@ namespace ConsoleUı
         private static void CarByModelYear(CarManager carManager, BrandManager brandManager, ColorManager colorManager)
         {
             Console.WriteLine("Hangi model yılına sahip arabayı görmek istiyorsunuz? Lütfen yıl değeri giriniz.");
-            string modelYearForCarList = Console.ReadLine();
-            Console.WriteLine($"\n\nColor Id'si {modelYearForCarList} olan arabalar: \nId\tColor Name\tBrand Name\tModel Year\tDaily Price\tDescriptions");
-            foreach (var car in carManager.GetCarDetails(c => c.ModelYear.ToString() == modelYearForCarList).Data)
+            int modelYearForCarList = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"\n\n Model yılı {modelYearForCarList} olan arabalar: \nId\tColor Name\tBrand Name\tModel Year\tDaily Price\tDescriptions");
+            foreach (var car in carManager.GetCarDetails(c => c.ModelYear == modelYearForCarList).Data)
             {
                 Console.WriteLine($"{car.Id}\t{car.ColorName}\t\t{car.BrandName}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t\t{car.Descriptions}");
             }
@@ -269,20 +283,20 @@ namespace ConsoleUı
 
         private static void GetAllCustomerList(CustomerManager customerManager)
         {
-            Console.WriteLine("Müşterilerin Listesi: \nId\tKullanıcı Id\tCustomer Name");
+            Console.WriteLine("Müşterilerin Listesi: \nId\tCustomer Id\tCustomer Name");
             foreach (var customer in customerManager.GetAll().Data)
             {
-                Console.WriteLine($"{customer.UserId}\t{customer.CompanyName}");
+                Console.WriteLine($"{customer.UserId}\t{customer.CustomerId}\t\t{customer.CompanyName}");
             }
         }
 
         private static void GetAllUserList(UserManager userManager)
         {
-            Console.WriteLine("Kullanıcı Listesi: \nId\tFirst Name\tLast Name\tEmail\tPassword");
+            Console.WriteLine("Kullanıcı Listesi: \nId\tFirst Name\tLast Name\tEmail");
 
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine($"{user.UserId}\t{user.FirstName}\t{user.LastName}\t{user.Email}");
+                Console.WriteLine($"{user.UserId}\t{user.FirstName}\t\t{user.LastName}\t\t{user.Email}");
             }
         }
 
@@ -296,9 +310,11 @@ namespace ConsoleUı
 
         private static void GetAllCarDetails(CarManager carManager)
         {
+            Console.WriteLine("Araba Listesi: \nId\tColor Name\tBrand Name\tModel Year");
+
             foreach (var cardetail in carManager.GetCarDetails().Data)
             {
-                Console.WriteLine($"{cardetail.Id}\t\t{cardetail.ColorName}\t{cardetail.BrandName}");
+                Console.WriteLine($"{cardetail.Id}\t{cardetail.ColorName}\t\t{cardetail.BrandName}\t\t{cardetail.ModelYear}");
             }
         }
 
@@ -312,14 +328,30 @@ namespace ConsoleUı
 
         private static void CarAddition(CarManager carManager, BrandManager brandManager, ColorManager colorManager)
         {
-            Console.WriteLine("Color List");
-            GetAllColor(colorManager);
+            Console.WriteLine("Color :");
+            int colorName = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Brand List");
-            GetAllBrand(brandManager);
+            Console.WriteLine("Brand :");
+            int brandName = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Car List");
-            GetAllCar(carManager);
+            Console.WriteLine("Model Year :");
+            int modelYear = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Daily Price:");
+            int dailyPrice = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Description :");
+            string description = Console.ReadLine();
+
+            Car car = new Car()
+            {
+                ColorId = colorName,
+                BrandId = brandName,
+                ModelYear = modelYear,
+                DailyPrice = dailyPrice,
+                Description = description
+            };
+
 
         }
 
@@ -327,9 +359,9 @@ namespace ConsoleUı
         {
             Console.WriteLine("Arabaların Listesi:  \nId\tColor Name\tBrand Name\tModel Year\tDaily Price\tDescriptions");
 
-            foreach (var car in carManager.GetAll().Data)
+            foreach (var car in carManager.GetCarDetails().Data)
             {
-                Console.WriteLine($"{car.Id}\t\t{car.ColorId}\t{car.BrandId}\t{car.ModelYear}\t{car.DailyPrice}\t{car.Description}");
+                Console.WriteLine($"{car.Id}\t\t{car.ColorName}\t{car.BrandName}\t{car.ModelYear}\t{car.DailyPrice}\t{car.Descriptions}");
             }
         }
 
