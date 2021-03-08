@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -275,8 +276,8 @@ namespace ConsoleUı
             {
                 FirstName = userName,
                 LastName = userLastName,
-                Email = userMail,
-                Password = userPassword
+                Email = userMail          
+                
             };
             userManager.Add(user);
         }
@@ -296,7 +297,7 @@ namespace ConsoleUı
 
             foreach (var user in userManager.GetAll().Data)
             {
-                Console.WriteLine($"{user.UserId}\t{user.FirstName}\t\t{user.LastName}\t\t{user.Email}");
+                Console.WriteLine($"{user.Id}\t{user.FirstName}\t\t{user.LastName}\t\t{user.Email}");
             }
         }
 

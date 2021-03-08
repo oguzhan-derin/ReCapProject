@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -28,17 +30,27 @@ namespace Business.Constants
         public static string UserDeleted = "Kullanıcı başarıyla silindi.";
         public static string UserUpdated = "Kullanıcı başarıyla güncellendi.";
 
-        internal static string CutomerAdded = "Müşteri başarıyla eklendi.";
-        internal static string CustomerDeleted = "Müşteri başarıyla eklendi.";
-        internal static string CustomerUpdated = "Müşteri başarıyla eklendi.";
+        public static string CutomerAdded = "Müşteri başarıyla eklendi.";
+        public static string CustomerDeleted = "Müşteri başarıyla eklendi.";
+        public static string CustomerUpdated = "Müşteri başarıyla eklendi.";
 
-        internal static string RentalAdded = "Araç kiralama işlemi başarıyla gerçekleşti.";
-        internal static string RentalDeleted = "Araç kiralama işlemi başarıyla silindi.";
-        internal static string RentalUpdated = "Araç kiralama işlemi başarıyla güncellendi.";
-        internal static string FailedRentalAddOrUpdate = "Araç henüz teslim edilmediği için kiralayamazsınız.";
-        internal static string ReturnedRental = "Kiraladığınız araç teslim edildi.";
-        internal static string FailedCarImageAdd="Bir araba 5'den fazla resme sahip olamaz.";
-        internal static string AddedCarImage = "Araba için yüklenilen resim başarıyla eklendi.";
-        internal static string DeletedCarImage = "Arabanın resmi başarıyla silindi.";
+        public static string RentalAdded = "Araç kiralama işlemi başarıyla gerçekleşti.";
+        public static string RentalDeleted = "Araç kiralama işlemi başarıyla silindi.";
+        public static string RentalUpdated = "Araç kiralama işlemi başarıyla güncellendi.";
+
+        public static string FailedRentalAddOrUpdate = "Araç henüz teslim edilmediği için kiralayamazsınız.";
+        public static string ReturnedRental = "Kiraladığınız araç teslim edildi.";
+
+        public static string FailedCarImageAdd="Bir araba 5'den fazla resme sahip olamaz.";
+        public static string AddedCarImage = "Araba için yüklenilen resim başarıyla eklendi.";
+        public static string DeletedCarImage = "Arabanın resmi başarıyla silindi.";
+
+        public static string AuthorizationDenied = "Yetkiniz yok.";
+        public static string UserRegistered = "Kayıt oldu.";
+        public static string UserAlreadyExists = "Kullanıcı mevcut!";
+        public static string AccessTokenCreated = "Token oluşturuldu.";
+        public static string SuccessfulLogin = "Baraşıyla giriş yapıldı";
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
+        public static string PasswordError = "Parola hatası!";
     }
 }

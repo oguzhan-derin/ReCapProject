@@ -6,7 +6,7 @@ using Entities.Concrete;
 using System.Text;
 using Core.Utilities.Results;
 using Business.Constants;
-
+using Core.Entities.Concrete;
 
 namespace Business.Concrete
 {
@@ -37,7 +37,16 @@ namespace Business.Concrete
 
         public IDataResult<User> GetById(int userId)
         {
-            return new SuccessDataResult<User>(_user.Get(u => u.UserId == userId));
+            return new SuccessDataResult<User>(_user.Get(u => u.Id == userId));
+        }
+        public User GetByMail(string email)
+        {
+            return _user.Get(u => u.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _user.GetClaims(user);
         }
 
         public IResult Update(User user)
